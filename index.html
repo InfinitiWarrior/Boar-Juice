@@ -536,6 +536,7 @@ section { position: relative; }
 .meme-source-inner {
   border: 1px dashed var(--border-gold);
   background: rgba(200,168,74,0.02);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -693,6 +694,41 @@ footer {
   font-style: italic;
   color: var(--off-white);
   opacity: 0.25;
+}
+
+/* ── BOAR ANIMATIONS ─────────────────────── */
+@keyframes boar-idle {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-7px) scale(1.02); }
+}
+
+@keyframes boar-squeeze {
+  0%   { transform: scaleY(1); }
+  25%  { transform: scaleY(0.12); }
+  60%  { transform: scaleY(0.12); }
+  80%  { transform: scaleY(1.05); }
+  100% { transform: scaleY(1); }
+}
+
+.boar-idle {
+  animation: boar-idle 3.5s ease-in-out infinite;
+  display: block;
+  max-width: 320px;
+  margin-top: 1.75rem;
+}
+
+.boar-squeeze-wrap {
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+
+.boar-squeeze {
+  animation: boar-squeeze 3s ease-in-out infinite;
+  transform-origin: bottom center;
+  display: block;
+  max-width: 320px;
 }
 
 /* ── RESPONSIVE ──────────────────────────── */
@@ -943,12 +979,9 @@ footer {
   <!-- ORIGINAL MEME -->
   <div class="meme-source-block">
     <!--
-      Drop original meme image here:
-      <img src="original-meme.jpg" alt="The original boar juice meme">
-
-      Until then, the placeholder below remains:
-    -->
-    <div class="meme-source-inner">
+  <img src="image-190.webp" alt="The original boar juice meme" style="max-width: 100%; height: auto; display: block;">
+  -->
+      <div class="meme-source-inner">
       <span class="slot-label">Original meme — drop image here</span>
       <p class="meme-hint">The source document. The ur-text. The one that started this.</p>
     </div>
@@ -963,17 +996,17 @@ footer {
       <div class="step-body">
         <h3>The Encounter</h3>
         <p>The production begins, as all great things do, with poor planning and overconfidence. The prospective producer enters the Shroud equipped with a knife, a dream, and insufficient armour. Brief eye contact with the boar is established. The boar does not share your vision.</p>
-        <img src="250px-Boar.webp" alt="The encounter">
+        <img class="boar-idle" src="250px-Boar.webp" alt="The boar, standing proud and unconcerned">
       </div>
     </div>
 
     <div class="process-step">
       <div class="step-num">02</div>
       <div class="step-body">
-        <h3>The Harvest</h3>
-        <p>Following the successful conclusion of the encounter — defined loosely as "the boar eventually stops moving" — extraction begins. Requires steady hands, a strong stomach, and the quiet dignity of someone who has already respawned twice today.</p>
-        <div class="step-img-slot">
-          <span class="slot-label">Step 2 image from meme — replace when ready</span>
+        <h3>The Squeeze</h3>
+        <p>Extraction is achieved through the application of considerable downward force. The process is proprietary. The boar is not consulted. What emerges is something the industry has not yet found adequate language for.</p>
+        <div class="boar-squeeze-wrap">
+          <img class="boar-squeeze" src="250px-Boar.webp" alt="The squeeze">
         </div>
       </div>
     </div>
@@ -981,32 +1014,14 @@ footer {
     <div class="process-step">
       <div class="step-num">03</div>
       <div class="step-body">
-        <h3>The Press</h3>
-        <p>The essence is extracted through a proprietary method developed by a Flameborn who prefers not to be named. Shroud-adjacent fermentation imparts signature notes of existential dread and corrupted ichor that connoisseurs have come to expect.</p>
+        <h3>The Juice</h3>
+        <p>The result. Aged briefly or not at all, depending on patience levels and proximity to a suitable vessel. Served at cellar temperature. The estate takes no responsibility for what happens next.</p>
+        <!--
+          Replace with juice/result image when ready:
+          <img src="juice-result.jpg" alt="Boar Juice" style="max-width:100%;margin-top:1.75rem;display:block;">
+        -->
         <div class="step-img-slot">
-          <span class="slot-label">Step 3 image from meme — replace when ready</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="process-step">
-      <div class="step-num">04</div>
-      <div class="step-body">
-        <h3>The Ageing</h3>
-        <p>Matured in fell-touched oak for an indeterminate period — time operates differently near the Shroud and our cellarmaster refuses to use a calendar. The product is considered ready when it begins to hum faintly and small animals avoid the cellar.</p>
-        <div class="step-img-slot">
-          <span class="slot-label">Step 4 image from meme — replace when ready</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="process-step">
-      <div class="step-num">05</div>
-      <div class="step-body">
-        <h3>The Bottling</h3>
-        <p>Each bottle is hand-filled and corked with bark from a tree that has witnessed unspeakable things. The Enshrouded seal of approval is pending — as all good things are. The label is applied with care. The estate is proud.</p>
-        <div class="step-img-slot">
-          <span class="slot-label">Step 5 image from meme — replace when ready</span>
+          <span class="slot-label">Result image — replace when ready</span>
         </div>
       </div>
     </div>
@@ -1018,9 +1033,7 @@ footer {
   <section class="official-section">
     <p class="section-label">Official Recognition</p>
     <h2 class="section-title" style="font-size:1.8rem">A Fan Tribute to Enshrouded</h2>
-    <div class="official-logo-slot">
-      <span>Enshrouded logo — pending Keen Games approval</span>
-    </div>
+      <img src="enshrouded_logo_white.png" alt="Enshrouded" style="width:300px;margin:2rem auto;display:block;">
     <p class="official-note">All Enshrouded assets belong to Keen Games GmbH. This site is an unofficial fan project.</p>
   </section>
 
