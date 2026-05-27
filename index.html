@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boar Juice — Embervale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white: #ffffff;
+  --off-white: #e8e4dc;
+  --gold: #c8a84a;
+  --gold-dim: rgba(200,168,74,0.6);
+  --bg: #0a0c09;
+  --bg-mid: #111510;
+  --surface: #151a12;
+  --muted: rgba(232,228,220,0.45);
+  --border: rgba(255,255,255,0.08);
+  --border-gold: rgba(200,168,74,0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--off-white);
+  font-family: 'Barlow', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 64px;
+  background: rgba(10,12,9,0.75);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-wordmark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-wordmark span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--off-white);
+  opacity: 0.55;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { opacity: 1; color: var(--white); }
+
+/* ── PAGES ───────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding: 0 2rem 8rem;
+  overflow: hidden;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Placeholder for hero background art */
+.hero-img-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #0f1a0d 0%, #0a0c09 40%, #1a0f08 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-img-placeholder-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.12;
+}
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,12,9,0.15) 0%,
+    rgba(10,12,9,0.0) 30%,
+    rgba(10,12,9,0.5) 65%,
+    rgba(10,12,9,0.92) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+/* Official logo image slot — swap with <img> when approved */
+.hero-logo-slot {
+  width: 260px;
+  height: 90px;
+  margin: 0 auto 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(200,168,74,0.2);
+}
+
+.hero-logo-slot span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.3;
+}
+
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 em {
+  display: block;
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 300;
+  font-size: 0.55em;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+
+.hero-body {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.7;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.hero-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem auto;
+  opacity: 0.5;
+}
+
+/* ── SECTION SHARED ──────────────────────── */
+section { position: relative; }
+
+.section-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.05;
+}
+
+/* ── ABOUT STRIP ─────────────────────────── */
+.about-strip {
+  padding: 7rem 0;
+  background: var(--bg-mid);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-text p {
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.7;
+  margin-top: 1.5rem;
+  line-height: 1.75;
+}
+
+/* Fanart slot - tall */
+.fanart-slot-tall {
+  aspect-ratio: 3/4;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.fanart-slot-tall img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slot-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.18;
+}
+
+/* ── TASTING NOTES ───────────────────────── */
+.tasting-section {
+  padding: 7rem 0;
+}
+
+.tasting-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 4rem;
+  border: 1px solid var(--border);
+}
+
+.tasting-card {
+  background: var(--bg);
+  padding: 2.5rem 1.75rem;
+  transition: background 0.25s;
+}
+
+.tasting-card:hover { background: var(--surface); }
+
+.tasting-card-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 0.85rem;
+}
+
+.tasting-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0.85rem;
+}
+
+.tasting-card p {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--off-white);
+  opacity: 0.6;
+}
+
+/* ── QUOTE ───────────────────────────────── */
+.quote-section {
+  padding: 6rem 2rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.quote-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  max-width: 800px;
+  margin: 0 auto 1.25rem;
+  line-height: 1.2;
+}
+
+.quote-source {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* ── GALLERY ─────────────────────────────── */
+.gallery-section { padding: 7rem 0; }
+
+.gallery-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.gallery-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.4;
+  max-width: 280px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.gallery-item {
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.03); }
+
+.gallery-slot {
+  aspect-ratio: 4/3;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.gallery-caption {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.gallery-caption-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.75;
+}
+
+.gallery-caption-sub {
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--off-white);
+  opacity: 0.35;
+  margin-top: 0.2rem;
+}
+
+/* ── PRODUCTION PAGE ─────────────────────── */
+.prod-hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 2rem 5rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.prod-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #0d160a 0%, #080c07 100%);
+}
+
+/* Slot for a wide cinematic screenshot */
+.prod-hero-img-slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prod-hero-img-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prod-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(8,12,7,0.3) 0%, rgba(8,12,7,0.85) 100%);
+  z-index: 1;
+}
+
+.prod-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.prod-hero-content h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.prod-hero-content p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.6;
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* Meme source block */
+.meme-source-block {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.meme-source-inner {
+  border: 1px dashed var(--border-gold);
+  background: rgba(200,168,74,0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  gap: 0.75rem;
+}
+
+/* swap with <img> tag once you have the meme */
+.meme-source-inner img {
+  max-width: 100%;
+  display: block;
+}
+
+.meme-source-inner .slot-label { font-size: 0.72rem; }
+
+.meme-hint {
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.25;
+}
+
+/* Process steps */
+.process-section {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  padding: 3.5rem 0;
+  align-items: start;
+}
+
+.process-step:last-child { border-bottom: 1px solid var(--border); }
+
+.step-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--white);
+  opacity: 0.08;
+  line-height: 1;
+  padding-top: 0.15rem;
+}
+
+.step-body { padding-left: 2rem; }
+
+.step-body h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.step-body p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.6;
+  line-height: 1.75;
+  max-width: 600px;
+}
+
+/* Image slot inside step */
+.step-img-slot {
+  margin-top: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 180px;
+}
+
+.step-img-slot img {
+  width: 100%;
+  display: block;
+}
+
+/* ── OFFICIAL TIE-IN ─────────────────────── */
+.official-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.official-logo-slot {
+  width: 300px;
+  height: 100px;
+  border: 1px dashed var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.official-logo-slot img { max-width: 100%; max-height: 100%; }
+.official-logo-slot span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.3;
+}
+
+.official-note {
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--off-white);
+  opacity: 0.3;
+  margin-top: 0.75rem;
+}
+
+/* ── FOOTER ──────────────────────────────── */
+footer {
+  padding: 2.5rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-wordmark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.3;
+}
+
+.footer-wordmark span { color: var(--gold); }
+
+.footer-copy {
+  font-size: 0.75rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--off-white);
+  opacity: 0.25;
+}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .tasting-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .gallery-note { text-align: left; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .tasting-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .process-step { grid-template-columns: 1fr; }
+  .step-num { font-size: 2.5rem; }
+  .step-body { padding-left: 0; padding-top: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-wordmark" onclick="showPage('home')">Boar <span>Juice</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+    <li><a onclick="showPage('production')" id="nav-production">Production</a></li>
+  </ul>
+</nav>
+
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <!--
+      HERO BACKGROUND — replace this div with your hero art:
+      <img class="hero-img" src="your-hero-art.jpg" alt="">
+    -->
+    <div class="hero-img-placeholder">
+      <span class="hero-img-placeholder-label">Hero background art — replace with official screenshot or fan art</span>
+    </div>
+
+    <div class="hero-scrim"></div>
+
+    <div class="hero-content">
+
+      <!--
+        ENSHROUDED LOGO — replace this div with the approved logo:
+        <img src="enshrouded-logo.png" alt="Enshrouded" style="width:260px;margin:0 auto 2.5rem;display:block;">
+      -->
+      <div class="hero-logo-slot">
+        <span>Enshrouded logo — pending approval</span>
+      </div>
+
+      <p class="hero-eyebrow">Embervale Reserve</p>
+
+      <h1>
+        Boar<br>
+        <em>Juice</em>
+      </h1>
+
+      <div class="hero-rule"></div>
+
+      <p class="hero-body">
+        Pressed from the ancient wilds of Embervale. Harvested by a Flameborn with poor planning and overconfidence. Aged in fell-touched oak until it starts humming.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ABOUT STRIP -->
+  <section class="about-strip">
+    <div class="section-inner">
+      <div class="about-grid">
+
+        <div class="about-text">
+          <p class="section-label">About the Estate</p>
+          <h2 class="section-title">A Beverage of<br>Terrifying Distinction</h2>
+          <p>
+            Boar Juice is the natural conclusion of spending too long in Revelwood. The estate operates without permits, without a governing body, and without a cellarmaster who will commit to a calendar. What it lacks in regulation it compensates for in character.
+          </p>
+          <p>
+            Each batch is hand-harvested from Fell Boar territories where the Shroud runs deepest and the respawn timer runs longest. The process is proprietary. The results are not guaranteed.
+          </p>
+        </div>
+
+        <!--
+          FANART SLOT — tall portrait
+          Replace inner content with:
+          <img src="fanart-portrait.jpg" alt="Boar Juice fan art">
+        -->
+        <div class="fanart-slot-tall">
+          <span class="slot-label">Fan art — awaiting artist permission</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TASTING NOTES -->
+  <section class="tasting-section">
+    <div class="section-inner">
+      <div>
+        <p class="section-label">Sommelier's Notes</p>
+        <h2 class="section-title">Tasting Profile</h2>
+      </div>
+
+      <div class="tasting-grid">
+
+        <div class="tasting-card">
+          <p class="tasting-card-label">01 — Nose</p>
+          <h3>The Approach</h3>
+          <p>Damp forest floor, singed fur, and ancient shroud mist. Complex secondary notes of what can only be described as determined malevolence.</p>
+        </div>
+
+        <div class="tasting-card">
+          <p class="tasting-card-label">02 — Palate</p>
+          <h3>The Entry</h3>
+          <p>Bold and uncompromising. Thick with tannins of desperation. The mid-palate reveals unexpected courage, shortly before respawning.</p>
+        </div>
+
+        <div class="tasting-card">
+          <p class="tasting-card-label">03 — Finish</p>
+          <h3>The Aftermath</h3>
+          <p>Long, haunting, and slightly aggressive. Lingers on the soul well past death. Pairs with iron pickaxes and a long walk back to your corpse.</p>
+        </div>
+
+        <div class="tasting-card">
+          <p class="tasting-card-label">04 — Composition</p>
+          <h3>The Substance</h3>
+          <p>Free-range boar essence, fell ichor, corrupted tusk residue, and the quiet regret of someone who has done this before and learned nothing.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <p class="quote-text">
+      "I didn't choose the boar.<br>The boar chose me. Three times.<br>In the same clearing."
+    </p>
+    <p class="quote-source">Anonymous Flameborn &mdash; Revelwood Expedition &mdash; Year Unknown</p>
+  </section>
+
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="section-inner">
+      <div class="gallery-header">
+        <div>
+          <p class="section-label">Community</p>
+          <h2 class="section-title">Fan Gallery</h2>
+        </div>
+        <p class="gallery-note">Artwork pending artist permission. Credits will appear here once approved.</p>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!--
+          Replace each .gallery-slot with:
+          <img src="fanart-1.jpg" alt="Description">
+        -->
+        <div class="gallery-item">
+          <div class="gallery-slot">
+            <span class="slot-label">Fan art — awaiting permission</span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">The Source</p>
+            <p class="gallery-caption-sub">Artist credit pending</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-slot">
+            <span class="slot-label">Fan art — awaiting permission</span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">The Harvest</p>
+            <p class="gallery-caption-sub">Artist credit pending</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-slot">
+            <span class="slot-label">Fan art — awaiting permission</span>
+          </div>
+          <div class="gallery-caption">
+            <p class="gallery-caption-title">The Product</p>
+            <p class="gallery-caption-sub">Artist credit pending</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Official tie-in -->
+  <section class="official-section">
+    <p class="section-label">Official Recognition</p>
+    <h2 class="section-title" style="font-size:1.8rem">A Fan Tribute to Enshrouded</h2>
+
+    <!--
+      Replace this div with the approved logo image:
+      <img src="enshrouded-logo.png" alt="Enshrouded" style="width:300px;margin:2rem auto;display:block;">
+    -->
+    <div class="official-logo-slot">
+      <span>Enshrouded logo — pending Keen Games approval</span>
+    </div>
+
+    <p class="official-note">All Enshrouded assets belong to Keen Games GmbH. This site is an unofficial fan project.</p>
+  </section>
+
+  <footer>
+    <p class="footer-wordmark">Boar <span>Juice</span> &mdash; Embervale Reserve</p>
+    <p class="footer-copy">No Flameborn were permanently harmed. An unofficial fan tribute to Enshrouded by Keen Games.</p>
+  </footer>
+
+</div>
+
+
+<!-- ══════════════════ PRODUCTION ══════════════════ -->
+<div class="page" id="page-production">
+
+  <!-- PROD HERO -->
+  <div class="prod-hero">
+
+    <!--
+      PRODUCTION HERO IMAGE — replace this slot with a screenshot:
+      <div class="prod-hero-img-slot">
+        <img src="enshrouded-screenshot.jpg" alt="Embervale">
+      </div>
+    -->
+    <div class="prod-hero-bg"></div>
+    <div class="prod-hero-scrim"></div>
+
+    <div class="prod-hero-content">
+      <p class="section-label">From Fell Beast to Fine Beverage</p>
+      <h1>The Art of<br>Production</h1>
+      <p>An ancient craft, refined through countless deaths and moderate amounts of fieldwork. Documented here for posterity and mild entertainment.</p>
+    </div>
+  </div>
+
+
+  <!-- ORIGINAL MEME -->
+  <div class="meme-source-block">
+    <!--
+      Drop original meme image here:
+      <img src="original-meme.jpg" alt="The original boar juice meme">
+
+      Until then, the placeholder below remains:
+    -->
+    <div class="meme-source-inner">
+      <span class="slot-label">Original meme — drop image here</span>
+      <p class="meme-hint">The source document. The ur-text. The one that started this.</p>
+    </div>
+  </div>
+
+
+  <!-- PRODUCTION STEPS -->
+  <section class="process-section">
+
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>The Encounter</h3>
+        <p>The production begins, as all great things do, with poor planning and overconfidence. The prospective producer enters the Shroud equipped with a knife, a dream, and insufficient armour. Brief eye contact with the boar is established. The boar does not share your vision.</p>
+        <!--
+          Step image: <img src="step-01.jpg" alt="The encounter">
+          Remove the slot div once the image is in place.
+        -->
+        <div class="step-img-slot">
+          <span class="slot-label">Step 1 image from meme — replace when ready</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>The Harvest</h3>
+        <p>Following the successful conclusion of the encounter — defined loosely as "the boar eventually stops moving" — extraction begins. Requires steady hands, a strong stomach, and the quiet dignity of someone who has already respawned twice today.</p>
+        <div class="step-img-slot">
+          <span class="slot-label">Step 2 image from meme — replace when ready</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>The Press</h3>
+        <p>The essence is extracted through a proprietary method developed by a Flameborn who prefers not to be named. Shroud-adjacent fermentation imparts signature notes of existential dread and corrupted ichor that connoisseurs have come to expect.</p>
+        <div class="step-img-slot">
+          <span class="slot-label">Step 3 image from meme — replace when ready</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>The Ageing</h3>
+        <p>Matured in fell-touched oak for an indeterminate period — time operates differently near the Shroud and our cellarmaster refuses to use a calendar. The product is considered ready when it begins to hum faintly and small animals avoid the cellar.</p>
+        <div class="step-img-slot">
+          <span class="slot-label">Step 4 image from meme — replace when ready</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>The Bottling</h3>
+        <p>Each bottle is hand-filled and corked with bark from a tree that has witnessed unspeakable things. The Enshrouded seal of approval is pending — as all good things are. The label is applied with care. The estate is proud.</p>
+        <div class="step-img-slot">
+          <span class="slot-label">Step 5 image from meme — replace when ready</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- Official tie-in -->
+  <section class="official-section">
+    <p class="section-label">Official Recognition</p>
+    <h2 class="section-title" style="font-size:1.8rem">A Fan Tribute to Enshrouded</h2>
+    <div class="official-logo-slot">
+      <span>Enshrouded logo — pending Keen Games approval</span>
+    </div>
+    <p class="official-note">All Enshrouded assets belong to Keen Games GmbH. This site is an unofficial fan project.</p>
+  </section>
+
+  <footer>
+    <p class="footer-wordmark">Boar <span>Juice</span> &mdash; Embervale Reserve</p>
+    <p class="footer-copy">Produced in the Shroud. Not liable for Shroud exposure incurred during consumption. Unofficial fan tribute.</p>
+  </footer>
+
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
